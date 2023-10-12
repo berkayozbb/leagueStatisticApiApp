@@ -33,13 +33,11 @@ class GoalKingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Sayfaya başlık ekleme
         if let navigationBar = self.navigationController?.navigationBar {
             let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: navigationBar.frame.size.width, height: navigationBar.frame.size.height))
             titleLabel.text = leagueName
             titleLabel.textAlignment = .center
             
-            // Özelleştireceğiniz fontu ve diğer özellikleri ayarlayın
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont(name: "Helvetica-Bold", size: 18.0)!, // Font ve boyut
                 .foregroundColor: UIColor.red, // Renk
@@ -48,7 +46,6 @@ class GoalKingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             let attributedTitle = NSAttributedString(string: titleLabel.text ?? "", attributes: attributes)
             titleLabel.attributedText = attributedTitle
             
-            // Başlık metnini Navigation Bar'a ekle
             navigationItem.titleView = titleLabel
         }
         
@@ -77,12 +74,9 @@ class GoalKingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
           } else {
             let httpResponse = response as? HTTPURLResponse
               if let data = data {
-                  // Yanıt verilerini JSON olarak çöz
                   do {
                       if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-//                          print(json)
                           if let resultsJSON = json["result"] as? [[String: Any]]{
-//                              print(resultsJSON)
                               for item in resultsJSON {
                                   if let play = item["play"] as? String{
                                       self.playsList.append(play)
@@ -95,7 +89,7 @@ class GoalKingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                                   }
                               }
                               DispatchQueue.main.async {
-                                     self.tableView.reloadData() // TableView'ı güncelle
+                                     self.tableView.reloadData()
                                  }
                           }
                           print(self.nameList)

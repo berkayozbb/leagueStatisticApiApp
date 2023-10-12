@@ -41,22 +41,18 @@ class ResultVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        scoreList.append("0-0")
 //        scoreList.append("0-0")
         
-        //Sayfaya başlık ekleme
         if let navigationBar = self.navigationController?.navigationBar {
             let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: navigationBar.frame.size.width, height: navigationBar.frame.size.height))
             titleLabel.text = leagueName
             titleLabel.textAlignment = .center
             
-            // Özelleştireceğiniz fontu ve diğer özellikleri ayarlayın
             let attributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont(name: "Helvetica-Bold", size: 18.0)!, // Font ve boyut
+                .font: UIFont(name: "Helvetica-Bold", size: 18.0)!,
                 .foregroundColor: UIColor.red, // Renk
             ]
             
             let attributedTitle = NSAttributedString(string: titleLabel.text ?? "", attributes: attributes)
             titleLabel.attributedText = attributedTitle
-            
-            // Başlık metnini Navigation Bar'a ekle
             navigationItem.titleView = titleLabel
         }
         
@@ -85,12 +81,9 @@ class ResultVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
           } else {
             let httpResponse = response as? HTTPURLResponse
               if let data = data {
-                  // Yanıt verilerini JSON olarak çöz
                   do {
                       if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-//                          print(json)
                           if let resultsJSON = json["result"] as? [[String: Any]]{
-//                              print(resultsJSON)
                               for item in resultsJSON {
                                   if let result = item["score"] as? String{
                                       self.scoreList.append(result)

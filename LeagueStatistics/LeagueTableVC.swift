@@ -15,11 +15,11 @@ class LeagueTableVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LeagueTableViewCell
-        cell.teamNameLabel.text = "\(rankList[indexPath.row]). \(teamList[indexPath.row])"
-        cell.lostLabel.text = loseList[indexPath.row]
-        cell.playLabel.text = playList[indexPath.row]
-        cell.winLabel.text = winList[indexPath.row]
-        cell.pointLabel.text = pointList[indexPath.row]
+        cell.teamNameLabel.text = "\(indexPath.row + 1). \(teamList[indexPath.row])"
+//        cell.lostLabel.text = loseList[indexPath.row]
+//        cell.playLabel.text = playList[indexPath.row]
+//        cell.winLabel.text = winList[indexPath.row]
+//        cell.pointLabel.text = pointList[indexPath.row]
         return cell
     }
     
@@ -70,13 +70,11 @@ class LeagueTableVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
 //        rankList.append("3")
 //        rankList.append("4")
         
-        //Sayfaya başlık ekleme
         if let navigationBar = self.navigationController?.navigationBar {
             let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: navigationBar.frame.size.width, height: navigationBar.frame.size.height))
             titleLabel.text = leagueName
             titleLabel.textAlignment = .center
             
-            // Özelleştireceğiniz fontu ve diğer özellikleri ayarlayın
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont(name: "Helvetica-Bold", size: 18.0)!, // Font ve boyut
                 .foregroundColor: UIColor.red, // Renk
@@ -85,7 +83,6 @@ class LeagueTableVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             let attributedTitle = NSAttributedString(string: titleLabel.text ?? "", attributes: attributes)
             titleLabel.attributedText = attributedTitle
             
-            // Başlık metnini Navigation Bar'a ekle
             navigationItem.titleView = titleLabel
         }
         
@@ -118,10 +115,8 @@ class LeagueTableVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
           } else {
             let httpResponse = response as? HTTPURLResponse
               if let data = data {
-                  // Yanıt verilerini JSON olarak çöz
                   do {
                       if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-//                          print(json)
                           if let resultsJSON = json["result"] as? [[String: Any]]{
 //                              print(resultsJSON)
                               for item in resultsJSON {
